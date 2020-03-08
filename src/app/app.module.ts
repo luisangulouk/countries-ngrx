@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ShellComponent } from './home/shell.component';
+import { MenuComponent } from './home/menu.component';
 
 /* NgRx */
 import { StoreModule } from '@ngrx/store';
@@ -13,7 +15,9 @@ import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ShellComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,

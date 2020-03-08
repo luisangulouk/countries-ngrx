@@ -1,7 +1,7 @@
 /* Defines the country entity */
 export interface Country {
-    countryId: number | null;
-    countryName: string;
+    id: number | null;
+    name: string;
     capital: string;
     polulation: number;
     currency: string;
@@ -10,14 +10,5 @@ export interface Country {
 
 export interface Region {
     regionName: string;
-    countries: Country[];
+    countries?: Country[];
 }
-
-/**
- * 
-a. Name
-b. Capital
-c. Population 
-d. Currencies 
-e. Flag
- */
