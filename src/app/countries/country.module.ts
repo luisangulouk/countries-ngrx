@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { SharedModule } from '../shared/shared.module';
 
 import { CountryShellComponent } from './containers/country-shell/country-shell.component';
-import { CountryListComponent } from './components/country-list/country-list.component';
+import { uiEntityListComponent } from './components/ui-entity-list/ui-entity-list.component';
 
 /* NgRx */
 import { StoreModule } from '@ngrx/store';
@@ -18,6 +19,7 @@ const countryRoutes: Routes = [
 
 @NgModule({
   imports: [
+    NgbModule,
     SharedModule,
     RouterModule.forChild(countryRoutes),
     StoreModule.forFeature('countries', reducer),
@@ -27,7 +29,7 @@ const countryRoutes: Routes = [
   ],
   declarations: [
     CountryShellComponent,
-    CountryListComponent
+    uiEntityListComponent
   ]
 })
 export class CountryModule { }
