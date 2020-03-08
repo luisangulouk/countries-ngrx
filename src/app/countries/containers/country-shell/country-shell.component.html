@@ -1,11 +1,23 @@
 <div class='row'>
-    <div class='col-md-4'>
-      <country-list
-      [displayCode]="displayCode$ | async"
-      [countries]="countries$ | async"
-      [selectedCountry]="selectedCountry$ | async"
-        [errorMessage]="errorMessage$ | async"
-      (checked)="checkChanged($event)"
-      (selected)="countrySelected($event)"></country-list>
+    <div class='col-md-12'>
+        <ui-entity-list
+        [entityTag]="'Region'"
+        [entities]="regions"
+        (selected)="regionSelected($event)">
+        </ui-entity-list>
     </div>
-  </div>
+</div>
+
+<div class='row'>
+    <div class='col-md-12'>
+        <ui-entity-list
+        [entityTag]="'Country'"
+        [displayCapital]="displayCapital$ | async"
+        [entities]="countries$ | async"
+        [selectedEntity]="selectedCountry$ | async"
+            [errorMessage]="errorMessage$ | async"
+        (checked)="checkChanged($event)"
+        (selected)="countrySelected($event)">
+        </ui-entity-list>
+    </div>
+</div>

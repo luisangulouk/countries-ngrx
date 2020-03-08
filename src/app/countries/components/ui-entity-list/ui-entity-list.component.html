@@ -1,0 +1,37 @@
+<div class="container">
+    <div cass="row">
+      <div class="form-check col-md-12">
+        <label>
+          <input class="form-check-input"
+                 type="checkbox"
+                 (change)="checkChanged($event.target.checked)"
+                 [checked]="displayCapital">
+          Display Country Capital
+        </label>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+          <div ngbDropdown *ngIf="entities" class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Select a {{ entityTag }}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button 
+                    ngbDropdownItem
+                    class="list-group-item list-group-item-action rounded-0"
+                    *ngFor="let entity of entities"
+                    [ngClass]="{'active': entity?.id === selectedEntity?.id}"
+                    (click)="entitySelected(entity)">{{ entity.name }}
+                        <ng-container *ngIf="displayCapital">
+                            ({{ entity.capital }})
+                        </ng-container>
+                </button>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger">
+    Error: {{ errorMessage }}
+</div>
+  

@@ -5,13 +5,20 @@ import { Observable } from 'rxjs';
 import * as fromCountry from './../../state';
 import * as countryActions from './../../state/country.actions';
 import { Country } from '../../country';
+import { Region } from '../../region';
 
 @Component({
   templateUrl: './country-shell.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CountryShellComponent implements OnInit {
-  displayCode$: Observable<boolean>;
+
+  regions: Region[] = [
+        { id: 1, name: 'Asia', countries: [] },
+        { id: 2, name: 'Europe', countries: [] }
+    ];
+
+  displayCapital$: Observable<boolean>;
   selectedCountry$: Observable<Country>;
   countries$: Observable<Country[]>;
   errorMessage$: Observable<string>;
@@ -19,11 +26,11 @@ export class CountryShellComponent implements OnInit {
   constructor(private store: Store<fromCountry.State>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(new countryActions.LoadEuroCountries());
+    //this.store.dispatch(new countryActions.LoadEuroCountries());
     this.countries$ = this.store.pipe(select(fromCountry.getCountries));
     this.errorMessage$ = this.store.pipe(select(fromCountry.getError));
     this.selectedCountry$ = this.store.pipe(select(fromCountry.getCurrentCountry));
-    this.displayCode$ = this.store.pipe(select(fromCountry.getShowCountryCode));
+    this.displayCapital$ = this.store.pipe(select(fromCountry.getShowCountryCode));
   }
 
   checkChanged(value: boolean): void {
@@ -40,6 +47,14 @@ export class CountryShellComponent implements OnInit {
 
   clearCountry(): void {
     this.store.dispatch(new countryActions.ClearCurrentCountry());
+  }
+
+  regionSelected(region: Region): void {
+    switch(region.name){
+      case 'Asia': this.store.dispatch(new countryActions.LoadAsianCountries()); break;
+      case 'Europe': this.store.dispatch(new countryActions.LoadEuroCountries()); break;
+      default: break;
+    }
   }
 
 }

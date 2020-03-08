@@ -8,7 +8,3 @@ export interface Country {
     flag: string;
 }
 
-export interface Region {
-    regionName: string;
-    countries?: Country[];
-}

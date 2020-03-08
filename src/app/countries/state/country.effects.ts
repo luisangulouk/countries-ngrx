@@ -17,26 +17,25 @@ export class CountryEffects {
   constructor(private CountryService: CountryService,
               private actions$: Actions) { }
 
-  @Effect()
-  loadEuroCountries$: Observable<Action> = this.actions$.pipe(
-    ofType(countryActions.CountryActionTypes.LoadEuroCountries),
-    mergeMap(action => this.CountryService.getCountries({ regionName: 'europe' }).pipe(
-        map(countries => (new countryActions.LoadEuroCountriesSuccess(countries))),
-        catchError(err => of(new countryActions.LoadEuroCountriesFail(err)))
-      )
-    )
-  );
+    @Effect()
+    loadEuroCountries$: Observable<Action> = this.actions$.pipe(
+        ofType(countryActions.CountryActionTypes.LoadEuroCountries),
+        mergeMap(action => this.CountryService.getCountries({ regionName: 'europe' }).pipe(
+            map(countries => (new countryActions.LoadEuroCountriesSuccess(countries))),
+            catchError(err => of(new countryActions.LoadEuroCountriesFail(err)))
+        )
+        )
+    );
 
-
-  @Effect()
-  loadAsianCountries$: Observable<Action> = this.actions$.pipe(
-    ofType(countryActions.CountryActionTypes.LoadAsianCountries),
-    mergeMap(action =>
-      this.CountryService.getCountries({ regionName: 'asia' }).pipe(
-        map(countries => (new countryActions.LoadAsianCountriesSuccess(countries))),
-        catchError(err => of(new countryActions.LoadAsianCountriesFail(err)))
-      )
-    )
-  );
+    @Effect()
+    loadAsianCountries$: Observable<Action> = this.actions$.pipe(
+        ofType(countryActions.CountryActionTypes.LoadAsianCountries),
+        mergeMap(action =>
+        this.CountryService.getCountries({ regionName: 'asia' }).pipe(
+            map(countries => (new countryActions.LoadAsianCountriesSuccess(countries))),
+            catchError(err => of(new countryActions.LoadAsianCountriesFail(err)))
+        )
+        )
+    );
 
 }
