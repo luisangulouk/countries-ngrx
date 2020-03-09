@@ -4,7 +4,6 @@ import { Observable, of } from 'rxjs';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 
 import { CountryService } from '../country.service';
-import { Country } from '../country';
 
 /* NgRx */
 import { Action } from '@ngrx/store';
@@ -20,7 +19,7 @@ export class CountryEffects {
     @Effect()
     loadEuroCountries$: Observable<Action> = this.actions$.pipe(
         ofType(countryActions.CountryActionTypes.LoadEuroCountries),
-        mergeMap(action => this.CountryService.getCountries({ regionName: 'europe' }).pipe(
+        mergeMap(action => this.CountryService.getCountries({ name: 'europe' }).pipe(
             map(countries => (new countryActions.LoadEuroCountriesSuccess(countries))),
             catchError(err => of(new countryActions.LoadEuroCountriesFail(err)))
         )
@@ -31,7 +30,7 @@ export class CountryEffects {
     loadAsianCountries$: Observable<Action> = this.actions$.pipe(
         ofType(countryActions.CountryActionTypes.LoadAsianCountries),
         mergeMap(action =>
-        this.CountryService.getCountries({ regionName: 'asia' }).pipe(
+        this.CountryService.getCountries({ name: 'asia' }).pipe(
             map(countries => (new countryActions.LoadAsianCountriesSuccess(countries))),
             catchError(err => of(new countryActions.LoadAsianCountriesFail(err)))
         )

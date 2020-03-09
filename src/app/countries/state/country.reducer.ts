@@ -4,14 +4,14 @@ import { CountryActionTypes, CountryActions } from './country.actions';
 // State for this feature (Country)
 export interface CountryState {
   showCountryCode: boolean;
-  currentCountryId: number | null;
+  currentCountryId: string | null;
   countries: Country[];
   error: string;
 }
 
 const initialState: CountryState = {
   showCountryCode: true,
-  currentCountryId: null,
+  currentCountryId: '',
   countries: [],
   error: ''
 };
@@ -28,7 +28,7 @@ export function reducer(state = initialState, action: CountryActions): CountrySt
     case CountryActionTypes.SetCurrentCountry:
       return {
         ...state,
-        currentCountryId: action.payload.id
+        currentCountryId: action.payload.numericCode
       };
 
     case CountryActionTypes.ClearCurrentCountry:
@@ -40,7 +40,7 @@ export function reducer(state = initialState, action: CountryActions): CountrySt
     case CountryActionTypes.InitializeCurrentCountry:
       return {
         ...state,
-        currentCountryId: 0
+        currentCountryId: ''
       };
 
     case CountryActionTypes.LoadEuroCountriesSuccess:

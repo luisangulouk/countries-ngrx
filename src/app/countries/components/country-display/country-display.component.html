@@ -1,0 +1,11 @@
+<div class="card" *ngIf="country">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+  <div class="card-body">
+    {{ country.name }}
+  </div>
+</div>
+<div *ngIf="errorMessage" class="alert alert-danger">
+  Error: {{ errorMessage }}
+</div>

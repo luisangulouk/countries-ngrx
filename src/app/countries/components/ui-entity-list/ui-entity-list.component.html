@@ -19,7 +19,6 @@
                     ngbDropdownItem
                     class="list-group-item list-group-item-action rounded-0"
                     *ngFor="let entity of entities"
-                    [ngClass]="{'active': entity?.id === selectedEntity?.id}"
                     (click)="entitySelected(entity)">{{ entity.name }}
                         <ng-container *ngIf="displayCapital">
                             ({{ entity.capital }})

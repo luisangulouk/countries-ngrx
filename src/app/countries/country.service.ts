@@ -15,7 +15,7 @@ export class CountryService {
   constructor(private http: HttpClient) { }
 
   getCountries(region: Region): Observable<Country[]> {
-    const url = `https://restcountries.eu/rest/v2/region/${region.regionName}`;
+    const url = `https://restcountries.eu/rest/v2/region/${region.name}`;
     return this.http.get<any[]>(url)
       .pipe(
         tap(data => data),

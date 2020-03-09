@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 
 import { CountryShellComponent } from './containers/country-shell/country-shell.component';
 import { uiEntityListComponent } from './components/ui-entity-list/ui-entity-list.component';
+import { countryDisplayComponent } from './components/country-display/country-display.component';
 
 /* NgRx */
 import { StoreModule } from '@ngrx/store';
@@ -29,7 +30,8 @@ const countryRoutes: Routes = [
   ],
   declarations: [
     CountryShellComponent,
-    uiEntityListComponent
+    uiEntityListComponent,
+    countryDisplayComponent
   ]
 })
 export class CountryModule { }

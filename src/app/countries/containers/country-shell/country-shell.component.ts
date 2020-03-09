@@ -14,8 +14,8 @@ import { Region } from '../../region';
 export class CountryShellComponent implements OnInit {
 
   regions: Region[] = [
-        { id: 1, name: 'Asia', countries: [] },
-        { id: 2, name: 'Europe', countries: [] }
+        { numericCode: '1', name: 'Asia', countries: [] },
+        { numericCode: '2', name: 'Europe', countries: [] }
     ];
 
   displayCapital$: Observable<boolean>;
@@ -42,6 +42,7 @@ export class CountryShellComponent implements OnInit {
   }
 
   countrySelected(country: Country): void {
+    console.log(country);
     this.store.dispatch(new countryActions.SetCurrentCountry(country));
   }
 

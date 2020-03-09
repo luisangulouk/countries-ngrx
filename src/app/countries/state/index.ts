@@ -26,18 +26,7 @@ export const getCurrentCountry = createSelector(
     getCountryFeatureState,
     getCurrentCountryId,
     (state, currentCountryId) => {
-        if (currentCountryId === 0) {
-            return {
-                id: 0,
-                name: '',
-                capital: '',
-                polulation: 0,
-                currency: '',
-                flag: ''
-            };
-        } else {
-            return currentCountryId ? state.countries.find(p => p.id === currentCountryId) : null;
-        }
+        return currentCountryId ? state.countries.find(p => p.numericCode === currentCountryId) : null;
     }
 );
 

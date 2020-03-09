@@ -1,10 +1,15 @@
 /* Defines the country entity */
+export interface Currency {
+    code?: string; 
+    name?: string;
+    symbol?: string | null;
+}
+
 export interface Country {
-    id: number | null;
+    numericCode: string;
     name: string;
     capital: string;
     polulation: number;
-    currency: string;
-    flag: string;
+    currencies: Currency[];
+    flag: string | null;
 }
-

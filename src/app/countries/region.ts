@@ -1,7 +1,7 @@
 import { Country } from './country';
 
 export interface Region {
-    id?: number | null;
+    numericCode?: string;
     name: string;
     countries?: Country[];
 }

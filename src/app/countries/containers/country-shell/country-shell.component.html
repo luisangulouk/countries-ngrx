@@ -21,3 +21,12 @@
         </ui-entity-list>
     </div>
 </div>
+
+<div class='row'>
+    <div class='col-md-12'>
+        <country-profile
+        [selectedCountry]="selectedCountry$ | async"
+        [errorMessage]="errorMessage$ | async">
+        </country-profile>
+      </div>
+</div>
