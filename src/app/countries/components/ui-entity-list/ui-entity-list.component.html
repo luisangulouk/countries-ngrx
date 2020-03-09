@@ -3,8 +3,10 @@
     Select a {{ entityTag }}
   </div>
   <div class="card-body">
-    <div ngbDropdown *ngIf="entities" class="d-inline-block">
-      <button class="btn btn-outline-primary btn-block" id="dropdownEntity1" ngbDropdownToggle>Select one</button>
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-outline-primary btn-block" id="dropdownEntity1" ngbDropdownToggle>
+        {{ entityProfileTag }}
+      </button>
       <div ngbDropdownMenu aria-labelledby="dropdownEntity1">
           <button 
               ngbDropdownItem
@@ -28,39 +30,6 @@
     </div>
   </div>
 </div>
-
-<!--
-<div class="ui-entity-list container">
-    <div class="row">
-        <div class="col-md-12">
-          <div ngbDropdown *ngIf="entities" class="d-inline-block">
-            <button class="btn btn-outline-primary btn-block" id="dropdownEntity1" ngbDropdownToggle>Select a {{ entityTag }}</button>
-            <div ngbDropdownMenu aria-labelledby="dropdownEntity1">
-                <button 
-                    ngbDropdownItem
-                    class="list-group-item list-group-item-action rounded-0"
-                    *ngFor="let entity of entities"
-                    (click)="entitySelected(entity)">{{ entity.name }}
-                        <ng-container *ngIf="displayCapital">
-                            ({{ entity.capital }})
-                        </ng-container>
-                </button>
-            </div>
-          </div>
-          <div *ngIf="displayCapital!==undefined" class="form-check">
-            <label>
-              <input class="form-check-input"
-                     type="checkbox"
-                     (change)="checkChanged($event.target.checked)"
-                     [checked]="displayCapital">
-              Display Country Capital
-            </label>
-          </div>
-        </div>
-    </div>
-</div>
--->
-
 
 <div *ngIf="errorMessage" class="alert alert-danger">
     Error: {{ errorMessage }}

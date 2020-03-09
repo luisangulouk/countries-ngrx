@@ -12,9 +12,9 @@ export interface State extends fromRoot.State {
 // Selector functions
 const getCountryFeatureState = createFeatureSelector<fromCountries.CountryState>('countries');
 
-export const getShowCountryCode = createSelector(
+export const showCountryCapital = createSelector(
     getCountryFeatureState,
-    state => state.showCountryCode
+    state => state.showCountryCapital
 );
 
 export const getCurrentCountryId = createSelector(
@@ -22,15 +22,60 @@ export const getCurrentCountryId = createSelector(
     state => state.currentCountryId
 );
 
+export const getCurrentRegionId = createSelector(
+    getCountryFeatureState,
+    state => state.currentRegionId
+);
+
 export const getCurrentCountry = createSelector(
     getCountryFeatureState,
     getCurrentCountryId,
-    (state, currentCountryId) => {
-        return currentCountryId ? state.countries.find(p => p.numericCode === currentCountryId) : null;
+    getCurrentRegionId,
+    (state, currentCountryId, getCurrentRegionId) => {
+        return currentCountryId && getCurrentRegionId ? 
+                state.regions.find(
+                    region => region.numericCode === getCurrentRegionId)
+                    .countries.find(
+                        country => country.numericCode === currentCountryId) 
+                : null;
+    }
+);
+
+export const getCountriesByRegion = createSelector(
+    getCountryFeatureState,
+    getCurrentRegionId,
+    (state, currentRegionId) => {
+        return currentRegionId ? state.regions.find(p => p.numericCode === currentRegionId).countries : null;
     }
 );
 
 export const getCountries = createSelector(
+    getCountryFeatureState,
+    state => state.countries
+);
+
+export const getRegions = createSelector(
+    getCountryFeatureState,
+    state => state.regions
+);
+
+export const getEuroCountries = createSelector(
+    getCountryFeatureState,
+    getRegions,
+    (state, regions) => {
+        return regions ? state.regions.find(p => p.name === 'Europe') : null;
+    }
+);
+
+export const getAsianCountries = createSelector(
+    getCountryFeatureState,
+    getRegions,
+    (state, regions) => {
+        return regions ? state.regions.find(p => p.name === 'Asia') : null;
+    }
+);
+
+export const ResetCountries = createSelector(
     getCountryFeatureState,
     state => state.countries
 );

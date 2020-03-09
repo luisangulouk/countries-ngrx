@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  Input,
-  OnChanges,
-  SimpleChanges
-} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { Country } from '../../country';
 
@@ -14,19 +7,14 @@ import { Country } from '../../country';
   templateUrl: './country-display.component.html',
   styleUrls: ['./country-display.component.css']
 })
-export class countryDisplayComponent implements OnInit, OnChanges, OnDestroy {
+export class countryDisplayComponent implements OnChanges {
   pageTitle = 'Country Profile';
   @Input() errorMessage: string;
   @Input() selectedCountry: Country;
 
-  componentActive = true;
   country: Country | null;
 
   constructor() {}
-
-  ngOnInit(): void {
-    console.log(this.selectedCountry);
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectedCountry) {
@@ -34,11 +22,6 @@ export class countryDisplayComponent implements OnInit, OnChanges, OnDestroy {
       this.displayCountry(country);
     }
   }
-
-  ngOnDestroy(): void {
-    this.componentActive = false;
-  }
-
 
   displayCountry(country: Country | null): void {
     // Set the local country property

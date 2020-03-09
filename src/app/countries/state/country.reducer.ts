@@ -1,28 +1,33 @@
 import { Country } from '../country';
 import { CountryActionTypes, CountryActions } from './country.actions';
+import { Region } from '../region';
 
 // State for this feature (Country)
 export interface CountryState {
-  showCountryCode: boolean;
+  showCountryCapital: boolean;
   currentCountryId: string | null;
+  currentRegionId: string | null
   countries: Country[];
+  regions: Region[];
   error: string;
 }
 
 const initialState: CountryState = {
-  showCountryCode: true,
+  showCountryCapital: true,
   currentCountryId: '',
+  currentRegionId: '',
   countries: [],
+  regions: [],
   error: ''
 };
 
 export function reducer(state = initialState, action: CountryActions): CountryState {
 
   switch (action.type) {
-    case CountryActionTypes.ToggleCountryCode:
+    case CountryActionTypes.ToggleCountryCapital:
       return {
         ...state,
-        showCountryCode: action.payload
+        showCountryCapital: action.payload
       };
 
     case CountryActionTypes.SetCurrentCountry:
@@ -31,11 +36,23 @@ export function reducer(state = initialState, action: CountryActions): CountrySt
         currentCountryId: action.payload.numericCode
       };
 
+    case CountryActionTypes.SetCurrentRegion:
+      return {
+        ...state,
+        currentRegionId: action.payload.numericCode
+      };
+
     case CountryActionTypes.ClearCurrentCountry:
       return {
         ...state,
         currentCountryId: null
       };
+
+    case CountryActionTypes.ResetCountries:
+        return {
+          ...state,
+          countries: []
+        };
 
     case CountryActionTypes.InitializeCurrentCountry:
       return {
@@ -56,6 +73,20 @@ export function reducer(state = initialState, action: CountryActions): CountrySt
       return {
         ...state,
         countries: [],
+        error: action.payload
+      };
+    
+    case CountryActionTypes.LoadRegionsSuccess:
+      return {
+        ...state,
+        regions: action.payload,
+        error: ''
+      };
+
+    case CountryActionTypes.LoadRegionsFail:
+      return {
+        ...state,
+        regions: [],
         error: action.payload
       };
 

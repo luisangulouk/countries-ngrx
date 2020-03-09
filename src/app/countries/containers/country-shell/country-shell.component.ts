@@ -13,49 +13,33 @@ import { Region } from '../../region';
 })
 export class CountryShellComponent implements OnInit {
 
-  regions: Region[] = [
-        { numericCode: '1', name: 'Asia', countries: [] },
-        { numericCode: '2', name: 'Europe', countries: [] }
-    ];
-
-  displayCapital$: Observable<boolean>;
+  regions$: Observable<Region[]>;
+  selectedCountriesByRegion$: Observable<Country[]>;
   selectedCountry$: Observable<Country>;
-  countries$: Observable<Country[]>;
+  displayCapital$: Observable<boolean>;
   errorMessage$: Observable<string>;
 
   constructor(private store: Store<fromCountry.State>) {}
 
   ngOnInit(): void {
-    //this.store.dispatch(new countryActions.LoadEuroCountries());
-    this.countries$ = this.store.pipe(select(fromCountry.getCountries));
-    this.errorMessage$ = this.store.pipe(select(fromCountry.getError));
+    this.store.dispatch(new countryActions.LoadRegions());
+    this.regions$ = this.store.pipe(select(fromCountry.getRegions));
+    this.selectedCountriesByRegion$ = this.store.pipe(select(fromCountry.getCountriesByRegion));
     this.selectedCountry$ = this.store.pipe(select(fromCountry.getCurrentCountry));
-    this.displayCapital$ = this.store.pipe(select(fromCountry.getShowCountryCode));
+    this.displayCapital$ = this.store.pipe(select(fromCountry.showCountryCapital));
+    this.errorMessage$ = this.store.pipe(select(fromCountry.getError));
   }
 
   checkChanged(value: boolean): void {
-    this.store.dispatch(new countryActions.ToggleCountryCode(value));
-  }
-
-  newCountry(): void {
-    this.store.dispatch(new countryActions.InitializeCurrentCountry());
+    this.store.dispatch(new countryActions.ToggleCountryCapital(value));
   }
 
   countrySelected(country: Country): void {
-    console.log(country);
     this.store.dispatch(new countryActions.SetCurrentCountry(country));
   }
 
-  clearCountry(): void {
-    this.store.dispatch(new countryActions.ClearCurrentCountry());
-  }
-
   regionSelected(region: Region): void {
-    switch(region.name){
-      case 'Asia': this.store.dispatch(new countryActions.LoadAsianCountries()); break;
-      case 'Europe': this.store.dispatch(new countryActions.LoadEuroCountries()); break;
-      default: break;
-    }
+    this.store.dispatch(new countryActions.SetCurrentRegion(region));
   }
 
 }

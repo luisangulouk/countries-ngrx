@@ -2,23 +2,26 @@ import { Country } from '../country';
 
 /* NgRx */
 import { Action } from '@ngrx/store';
+import { Region } from '../region';
 
 export enum CountryActionTypes {
-  ToggleCountryCode = '[Country] Toggle Country Code',
+  ToggleCountryCapital = '[Country] Toggle Country Capital',
   SetCurrentCountry = '[Country] Set Current Country',
-  ClearCurrentCountry = '[Country] Clear Current Country',
-  InitializeCurrentCountry = '[Country] Initialize Current Country',
+  SetCurrentRegion = '[Region] Set Current Region',
   LoadEuroCountries = '[Country] Load Euro Countries',
   LoadEuroCountriesSuccess = '[Country] Load Euro Countries Success',
   LoadEuroCountriesFail = '[Country] Load Euro Countries Fail',
   LoadAsianCountries = '[Country] Load Asian Countries',
   LoadAsianCountriesSuccess = '[Country] Load Asian Countries Success',
   LoadAsianCountriesFail = '[Country] Load Asian Countries Fail',
+  LoadRegions = '[Region] Load Euro and Asian regions',
+  LoadRegionsSuccess = '[Region] Load Euro and Asian regions Success',
+  LoadRegionsFail = '[Region] Load Euro and Asian regions Fail',
 }
 
 // Action Creators
-export class ToggleCountryCode implements Action {
-  readonly type = CountryActionTypes.ToggleCountryCode;
+export class ToggleCountryCapital implements Action {
+  readonly type = CountryActionTypes.ToggleCountryCapital;
 
   constructor(public payload: boolean) { }
 }
@@ -29,12 +32,10 @@ export class SetCurrentCountry implements Action {
   constructor(public payload: Country) { }
 }
 
-export class ClearCurrentCountry implements Action {
-  readonly type = CountryActionTypes.ClearCurrentCountry;
-}
+export class SetCurrentRegion implements Action {
+  readonly type = CountryActionTypes.SetCurrentRegion;
 
-export class InitializeCurrentCountry implements Action {
-  readonly type = CountryActionTypes.InitializeCurrentCountry;
+  constructor(public payload: Region) { }
 }
 
 export class LoadEuroCountries implements Action {
@@ -69,14 +70,32 @@ export class LoadAsianCountriesFail implements Action {
   constructor(public payload: string) { }
 }
 
+export class LoadRegions implements Action {
+  readonly type = CountryActionTypes.LoadRegions;
+}
+
+export class LoadRegionsSuccess implements Action {
+  readonly type = CountryActionTypes.LoadRegionsSuccess;
+
+  constructor(public payload: Region[]) { }
+}
+
+export class LoadRegionsFail implements Action {
+  readonly type = CountryActionTypes.LoadRegionsFail;
+
+  constructor(public payload: string) { }
+}
+
 // Union the valid types
-export type CountryActions = ToggleCountryCode
+export type CountryActions = ToggleCountryCapital
   | SetCurrentCountry
-  | ClearCurrentCountry
-  | InitializeCurrentCountry
+  | SetCurrentRegion
   | LoadEuroCountries
   | LoadEuroCountriesSuccess
   | LoadEuroCountriesFail
   | LoadAsianCountries
   | LoadAsianCountriesSuccess
-  | LoadAsianCountriesFail;
+  | LoadAsianCountriesFail
+  | LoadRegions
+  | LoadRegionsSuccess
+  | LoadRegionsFail

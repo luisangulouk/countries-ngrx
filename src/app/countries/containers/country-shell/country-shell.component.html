@@ -2,7 +2,7 @@
     <div class='col-md-12'>
         <ui-entity-list
         [entityTag]="'Region'"
-        [entities]="regions"
+        [entities]="regions$ | async"
         (selected)="regionSelected($event)">
         </ui-entity-list>
     </div>
@@ -13,7 +13,7 @@
         <ui-entity-list
         [entityTag]="'Country'"
         [displayCapital]="displayCapital$ | async"
-        [entities]="countries$ | async"
+        [entities]="selectedCountriesByRegion$ | async"
         [selectedEntity]="selectedCountry$ | async"
             [errorMessage]="errorMessage$ | async"
         (checked)="checkChanged($event)"
