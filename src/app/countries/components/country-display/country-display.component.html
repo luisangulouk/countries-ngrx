@@ -3,7 +3,50 @@
     {{pageTitle}}
   </div>
   <div class="card-body">
-    {{ country.name }}
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>
+            country: 
+          </td>
+          <td>
+            {{ country.name }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            capital: 
+          </td>
+          <td>
+            {{ country.capital }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            population: 
+          </td>
+          <td>
+            {{ country.population }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            currencies: 
+          </td>
+          <td>
+            <p *ngFor="let currency of country.currencies">{{ currency.name }}</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            flag: 
+          </td>
+          <td>
+            <img alt="{{country.name}}" src="{{country.flag}}" width="25" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 <div *ngIf="errorMessage" class="alert alert-danger">

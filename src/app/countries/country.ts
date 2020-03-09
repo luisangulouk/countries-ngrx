@@ -9,7 +9,7 @@ export interface Country {
     numericCode: string;
     name: string;
     capital: string;
-    polulation: number;
+    population: number;
     currencies: Currency[];
     flag: string | null;
 }
