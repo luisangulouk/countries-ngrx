@@ -42,24 +42,6 @@ export function reducer(state = initialState, action: CountryActions): CountrySt
         currentRegionId: action.payload.numericCode
       };
 
-    case CountryActionTypes.ClearCurrentCountry:
-      return {
-        ...state,
-        currentCountryId: null
-      };
-
-    case CountryActionTypes.ResetCountries:
-        return {
-          ...state,
-          countries: []
-        };
-
-    case CountryActionTypes.InitializeCurrentCountry:
-      return {
-        ...state,
-        currentCountryId: ''
-      };
-
     case CountryActionTypes.LoadEuroCountriesSuccess:
     case CountryActionTypes.LoadAsianCountriesSuccess:
       return {
