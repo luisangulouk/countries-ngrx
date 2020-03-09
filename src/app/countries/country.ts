@@ -1,23 +1,15 @@
 /* Defines the country entity */
+export interface Currency {
+    code?: string; 
+    name?: string;
+    symbol?: string | null;
+}
+
 export interface Country {
-    countryId: number | null;
-    countryName: string;
+    numericCode: string;
+    name: string;
     capital: string;
-    polulation: number;
-    currency: string;
-    flag: string;
+    population: number;
+    currencies: Currency[];
+    flag: string | null;
 }
-
-export interface Region {
-    regionName: string;
-    countries: Country[];
-}
-
-/**
- * 
-a. Name
-b. Capital
-c. Population 
-d. Currencies 
-e. Flag
- */

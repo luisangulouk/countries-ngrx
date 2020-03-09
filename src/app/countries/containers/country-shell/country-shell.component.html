@@ -1,0 +1,32 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <ui-entity-list
+        [entityTag]="'Region'"
+        [entities]="regions$ | async"
+        (selected)="regionSelected($event)">
+        </ui-entity-list>
+    </div>
+</div>
+
+<div class='row'>
+    <div class='col-md-12'>
+        <ui-entity-list
+        [entityTag]="'Country'"
+        [displayCapital]="displayCapital$ | async"
+        [entities]="selectedCountriesByRegion$ | async"
+        [selectedEntity]="selectedCountry$ | async"
+            [errorMessage]="errorMessage$ | async"
+        (checked)="checkChanged($event)"
+        (selected)="countrySelected($event)">
+        </ui-entity-list>
+    </div>
+</div>
+
+<div class='row'>
+    <div class='col-md-12'>
+        <country-profile
+        [selectedCountry]="selectedCountry$ | async"
+        [errorMessage]="errorMessage$ | async">
+        </country-profile>
+      </div>
+</div>
