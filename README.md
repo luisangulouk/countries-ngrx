@@ -15,7 +15,7 @@ On Countries' landing page 2 dropdown boxes will be rendered; one associated to 
 
 A Country's Profile will be rendered when clicking on a country on the second dropdown, an extra Redux-action was added on "List including Capital" checkbox which includes the name of the Country's Capital on the list(Country's dropdown).
 
-The initial idea was treating **Reagions** and **Countries** as separate entities with similar structures however along the way seemed to be more logical to get them nested and make a better use of the Redux:Store.
+The initial idea was treating **Regions** and **Countries** as separate entities with similar structures however along the way seemed to be more logical to get them nested and make a better use of the Redux:Store.
 
 
 **RegionCountryNgrx tree-structure Layout**
