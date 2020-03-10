@@ -1,46 +1,46 @@
-<div class="card" *ngIf="country">
+<div class="country-display card" *ngIf="country">
   <div class="card-header">
-    {{pageTitle}}
+    <strong>{{pageTitle}}</strong>
   </div>
   <div class="card-body">
     <table class="table">
       <tbody>
         <tr>
-          <td>
+          <th>
             country: 
-          </td>
+          </th>
           <td>
             {{ country.name }}
           </td>
         </tr>
         <tr>
-          <td>
+          <th>
             capital: 
-          </td>
+          </th>
           <td>
             {{ country.capital }}
           </td>
         </tr>
         <tr>
-          <td>
+          <th>
             population: 
-          </td>
+          </th>
           <td>
             {{ country.population }}
           </td>
         </tr>
         <tr>
-          <td>
+          <th>
             currencies: 
-          </td>
+          </th>
           <td>
             <p *ngFor="let currency of country.currencies">{{ currency.name }}</p>
           </td>
         </tr>
         <tr>
-          <td>
+          <th>
             flag: 
-          </td>
+          </th>
           <td>
             <img alt="{{country.name}}" src="{{country.flag}}" width="25" />
           </td>
