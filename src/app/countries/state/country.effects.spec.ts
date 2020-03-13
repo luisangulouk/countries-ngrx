@@ -5,13 +5,21 @@ import { Observable, of } from 'rxjs';
 
 import { CountryService } from '../country.service';
 import { Country } from '../country';
-import { LoadEuroCountries, LoadEuroCountriesSuccess, LoadEuroCountriesFail, CountryActions } from './country.actions';
+import { LoadEuroCountries, LoadEuroCountriesSuccess, LoadEuroCountriesFail, CountryActions, CountryActionTypes } from './country.actions';
 import { CountryEffects } from './country.effects';
 
 describe(`Effect: Countries`, () => {
     let actions: Observable<CountryActions>;
     let effects: CountryEffects;
     let service: CountryService;
+    const countries = [{
+      numericCode: '001',
+      name: 'United Kingdom',
+      capital: 'London',
+      population: 60000000,
+      currencies: [{ code: 'GBP', name: 'British Pound'}],
+      flag: 'some url'
+    }];
   
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -38,20 +46,25 @@ describe(`Effect: Countries`, () => {
   
     describe('loadCountries', () => {
       it('should return a LoadEuroCountriesSuccess action, with the users, on success', () => {
-        const countries = [{
-          numericCode: '001',
-          name: 'United Kingdom',
-          capital: 'London',
-          population: 60000000,
-          currencies: [{ code: 'GBP', name: 'British Pound'}],
-          flag: 'some url'
-        }];
         const action = new LoadEuroCountries();
         const outcome = new LoadEuroCountriesSuccess(countries);
   
         actions = hot('-a', { a: action });
         const response = cold('-a|', { a: countries });
         const expected = cold('--b', { b: outcome });
+        service.getCountries = jest.fn(() => response);
+  
+        expect(effects.loadEuroCountries$).toBeObservable(expected);
+      });
+
+      it('should return a LoadEuroCountriesFail action, with an error, on failure', () => {
+        const error = new Error();
+        const action = new LoadEuroCountries();
+        const outcome = new LoadEuroCountriesFail({error});
+  
+        actions = hot('-a', { a: action });
+        const response = cold('-#|', {}, error );
+        const expected = cold('--(b|)', { b: outcome });
         service.getCountries = jest.fn(() => response);
   
         expect(effects.loadEuroCountries$).toBeObservable(expected);

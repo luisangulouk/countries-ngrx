@@ -9,7 +9,7 @@ export interface CountryState {
   currentRegionId: string | null
   countries: Country[];
   regions: Region[];
-  error: string;
+  error?: Error
 }
 
 const initialState: CountryState = {
@@ -17,8 +17,7 @@ const initialState: CountryState = {
   currentCountryId: '',
   currentRegionId: '',
   countries: [],
-  regions: [],
-  error: ''
+  regions: []
 };
 
 export function reducer(state = initialState, action: CountryActions): CountryState {
@@ -46,30 +45,21 @@ export function reducer(state = initialState, action: CountryActions): CountrySt
     case CountryActionTypes.LoadAsianCountriesSuccess:
       return {
         ...state,
-        countries: action.payload,
-        error: ''
+        countries: action.payload
       };
 
+    case CountryActionTypes.LoadRegionsFail:
     case CountryActionTypes.LoadEuroCountriesFail:
     case CountryActionTypes.LoadAsianCountriesFail:
       return {
         ...state,
-        countries: [],
-        error: action.payload
+        error: action.payload.error
       };
     
     case CountryActionTypes.LoadRegionsSuccess:
       return {
         ...state,
-        regions: action.payload,
-        error: ''
-      };
-
-    case CountryActionTypes.LoadRegionsFail:
-      return {
-        ...state,
-        regions: [],
-        error: action.payload
+        regions: action.payload
       };
 
     default:
