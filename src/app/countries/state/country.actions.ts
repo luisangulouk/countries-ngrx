@@ -51,7 +51,7 @@ export class LoadEuroCountriesSuccess implements Action {
 export class LoadEuroCountriesFail implements Action {
   readonly type = CountryActionTypes.LoadEuroCountriesFail;
 
-  constructor(public payload: string) { }
+  constructor(public payload: { error: Error }) { }
 }
 
 export class LoadAsianCountries implements Action {
@@ -67,7 +67,7 @@ export class LoadAsianCountriesSuccess implements Action {
 export class LoadAsianCountriesFail implements Action {
   readonly type = CountryActionTypes.LoadAsianCountriesFail;
 
-  constructor(public payload: string) { }
+  constructor(public payload: { error: Error }) { }
 }
 
 export class LoadRegions implements Action {
@@ -83,7 +83,7 @@ export class LoadRegionsSuccess implements Action {
 export class LoadRegionsFail implements Action {
   readonly type = CountryActionTypes.LoadRegionsFail;
 
-  constructor(public payload: string) { }
+  constructor(public payload: { error: Error }) { }
 }
 
 // Union the valid types
