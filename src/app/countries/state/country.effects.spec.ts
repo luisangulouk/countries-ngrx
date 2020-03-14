@@ -4,8 +4,7 @@ import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
 
 import { CountryService } from '../country.service';
-import { Country } from '../country';
-import { LoadEuroCountries, LoadEuroCountriesSuccess, LoadEuroCountriesFail, CountryActions, CountryActionTypes } from './country.actions';
+import { LoadEuroCountries, LoadEuroCountriesSuccess, LoadEuroCountriesFail, CountryActions, CountryActionTypes, LoadRegions, LoadRegionsSuccess, LoadRegionsFail } from './country.actions';
 import { CountryEffects } from './country.effects';
 
 describe(`Effect: Countries`, () => {
@@ -20,6 +19,10 @@ describe(`Effect: Countries`, () => {
       currencies: [{ code: 'GBP', name: 'British Pound'}],
       flag: 'some url'
     }];
+    const regions = [
+      { numericCode: '1', name: 'Asia', countries: countries },
+      { numericCode: '2', name: 'Europe', countries: countries }
+    ]
   
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -44,8 +47,8 @@ describe(`Effect: Countries`, () => {
       expect(effects).toBeTruthy();
     });
   
-    describe('loadCountries', () => {
-      it('should return a LoadEuroCountriesSuccess action, with the users, on success', () => {
+    describe('load European Countries', () => {
+      it('should return a LoadEuroCountriesSuccess action, with the countries, on success', () => {
         const action = new LoadEuroCountries();
         const outcome = new LoadEuroCountriesSuccess(countries);
   
