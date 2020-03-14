@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { Observable, of, combineLatest } from 'rxjs';
-import { mergeMap, map, catchError, distinctUntilChanged, tap, exhaustMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, catchError, exhaustMap } from 'rxjs/operators';
 
 import { CountryService } from '../country.service';
 
@@ -21,23 +21,9 @@ export class CountryEffects {
     loadRegions$: Observable<Action> = this.actions$
         .pipe(
             ofType(countryActions.CountryActionTypes.LoadRegions),
-            exhaustMap(() => combineLatest([
-                this.CountryService.getCountries({ name: 'asia'}),
-                this.CountryService.getCountries({ name: 'europe'}),
-            ])
-                .pipe(
-                    distinctUntilChanged()
-                ).pipe(
-                map(([asia, europe]) => {   
-                        let regions = [
-                            { numericCode: '1', name: 'Asia', countries: asia },
-                            { numericCode: '2', name: 'Europe', countries: europe }
-                        ]
-                        return(new countryActions.LoadRegionsSuccess(regions))
-                    }),
-                catchError(error => of(new countryActions.LoadRegionsFail({error})))
-            )
-            )
+            exhaustMap(() => this.CountryService.getRegions()),
+            map(regions => new countryActions.LoadRegionsSuccess(regions)),
+            catchError(error => of(new countryActions.LoadRegionsFail({ error })))
         );
 
     @Effect()
