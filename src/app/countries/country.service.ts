@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable, throwError, combineLatest } from 'rxjs';
+import { catchError, tap, map } from 'rxjs/operators';
 
 import { Country } from './country';
 import { Region } from './region';
@@ -20,6 +20,23 @@ export class CountryService {
       .pipe(
         tap(data => data),
         catchError(this.handleError)
+      );
+  }
+
+  getRegions(): Observable<Region[]> {
+
+    return combineLatest([
+      this.getCountries({ name: 'asia'}),
+      this.getCountries({ name: 'europe'})
+      ])
+      .pipe(
+        map(([asia, europe]) => {   
+                let regions = [
+                    { numericCode: '1', name: 'Asia', countries: asia },
+                    { numericCode: '2', name: 'Europe', countries: europe }
+                ]
+                return regions;
+            })
       );
   }
 

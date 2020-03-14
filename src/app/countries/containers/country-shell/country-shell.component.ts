@@ -17,7 +17,7 @@ export class CountryShellComponent implements OnInit {
   selectedCountriesByRegion$: Observable<Country[]>;
   selectedCountry$: Observable<Country>;
   displayCapital$: Observable<boolean>;
-  errorMessage$: Observable<string>;
+  errorMessage$: Observable<Error>;
 
   constructor(private store: Store<fromCountry.State>) {}
 

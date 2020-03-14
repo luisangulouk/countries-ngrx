@@ -1,17 +1,19 @@
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { CountryService } from '../country.service';
-import { LoadEuroCountries, LoadEuroCountriesSuccess, LoadEuroCountriesFail, CountryActions, CountryActionTypes, LoadRegions, LoadRegionsSuccess, LoadRegionsFail } from './country.actions';
+import { LoadEuroCountries, LoadEuroCountriesSuccess, LoadEuroCountriesFail, CountryActions, CountryActionTypes, LoadRegions, LoadRegionsSuccess, LoadRegionsFail, LoadAsianCountries, LoadAsianCountriesSuccess } from './country.actions';
 import { CountryEffects } from './country.effects';
+import { Country, generateCountries } from '../country';
+import { Region } from '../region';
 
-describe(`Effect: Countries`, () => {
+describe('Effect: Countries', () => {
     let actions: Observable<CountryActions>;
     let effects: CountryEffects;
     let service: CountryService;
-    const countries = [{
+    const countries: Country[] = [{
       numericCode: '001',
       name: 'United Kingdom',
       capital: 'London',
@@ -19,7 +21,7 @@ describe(`Effect: Countries`, () => {
       currencies: [{ code: 'GBP', name: 'British Pound'}],
       flag: 'some url'
     }];
-    const regions = [
+    const regions: Region[] = [
       { numericCode: '1', name: 'Asia', countries: countries },
       { numericCode: '2', name: 'Europe', countries: countries }
     ]
@@ -71,6 +73,34 @@ describe(`Effect: Countries`, () => {
         service.getCountries = jest.fn(() => response);
   
         expect(effects.loadEuroCountries$).toBeObservable(expected);
+      });
+    });
+
+    describe('load Reagions', () => {
+      it('should return a LoadRegionsSuccess action, with the regions, on success', () => {
+        const action = new LoadRegions();
+        const outcome = new LoadRegionsSuccess(regions);
+
+        actions = hot('-a', { a: action });
+        const response = cold('-a|', { a: regions });
+        const expected = cold('--b', { b: outcome });
+
+        service.getRegions = jest.fn(() => response);
+  
+        expect(effects.loadRegions$).toBeObservable(expected);
+      });
+
+      it('should return a LoadRegionsFail action, with an error, on failure', () => {
+        const error = new Error();
+        const action = new LoadRegions();
+        const outcome = new LoadRegionsFail({error});
+  
+        actions = hot('-a', { a: action });
+        const response = cold('-#|', {}, error );
+        const expected = cold('--(b|)', { b: outcome });
+        service.getRegions = jest.fn(() => response);
+  
+        expect(effects.loadRegions$).toBeObservable(expected);
       });
 
     });
