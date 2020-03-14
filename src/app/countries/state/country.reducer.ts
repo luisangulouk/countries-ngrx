@@ -12,7 +12,7 @@ export interface CountryState {
   error?: Error
 }
 
-const initialState: CountryState = {
+export const initialState: CountryState = {
   showCountryCapital: true,
   currentCountryId: '',
   currentRegionId: '',

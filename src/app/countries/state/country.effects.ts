@@ -21,7 +21,7 @@ export class CountryEffects {
     loadRegions$: Observable<Action> = this.actions$
         .pipe(
             ofType(countryActions.CountryActionTypes.LoadRegions),
-            exhaustMap(action => combineLatest([
+            exhaustMap(() => combineLatest([
                 this.CountryService.getCountries({ name: 'asia'}),
                 this.CountryService.getCountries({ name: 'europe'}),
             ])
